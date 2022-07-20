@@ -16,7 +16,7 @@ const PropertiesPanelStyled = styled(Paper)`
 `;
 
 const SettingsStyled = styled.div`
-  padding: 10px;
+  //padding: 10px;
 `;
 
 const Properties = () => {
@@ -51,7 +51,7 @@ export const PropertiesPanel = () => {
     <PropertiesPanelStyled>
       <Row align={'middle'}>
         <Col span={24}>
-          <h4>Properties</h4>
+          <h4>Inspect</h4>
         </Col>
         <Col span={24}>
           <Divider />

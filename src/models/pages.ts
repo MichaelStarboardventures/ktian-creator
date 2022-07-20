@@ -28,7 +28,9 @@ const usePages = (pages: Page[]): Page[] => {
 };
 
 export default () => {
-  const [pages, setPages] = useState<Page[]>([]);
+  const [pages, setPages] = useState<Page[]>([
+    { path: '/page1', name: 'page1', content: '' },
+  ]);
   const [currentPage, setCurrentPage] = useState<Page | null>(null);
 
   const retPages = usePages(pages);
