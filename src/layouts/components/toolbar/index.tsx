@@ -4,11 +4,14 @@ import { Todo } from '@/layouts/components/todo';
 import {
   DesktopOutlined,
   LinkOutlined,
+  MobileOutlined,
   PlayCircleOutlined,
   PlusOutlined,
+  SaveOutlined,
   SettingOutlined,
 } from '@ant-design/icons';
 import { useEditor } from '@craftjs/core';
+import { TabletOutlined } from '@mui/icons-material';
 import { Button as AntButton, Col, Row, Tooltip } from 'antd';
 import React, { useContext } from 'react';
 import styled from 'styled-components';
@@ -82,9 +85,15 @@ export const Toolbar = () => {
           </Row>
         </Col>
         <Col>
-          <Row gutter={[20, 0]}>
+          <Row gutter={[20, 0]} justify={'center'}>
             <Col>
               <DesktopOutlined className={'toolbar-icon'} />
+            </Col>
+            <Col>
+              <TabletOutlined className={'toolbar-icon'} />
+            </Col>
+            <Col>
+              <MobileOutlined className={'toolbar-icon'} />
             </Col>
           </Row>
         </Col>
@@ -104,6 +113,11 @@ export const Toolbar = () => {
             <Col>
               <Tooltip title={'Share'}>
                 <LinkOutlined className={'toolbar-icon'} />
+              </Tooltip>
+            </Col>
+            <Col>
+              <Tooltip title={'Save'}>
+                <SaveOutlined className={'toolbar-icon'} />
               </Tooltip>
             </Col>
             <Col>
