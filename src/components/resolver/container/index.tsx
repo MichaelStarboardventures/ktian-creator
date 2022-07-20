@@ -76,17 +76,15 @@ export const Container: UserComponent<ContainerProps> = ({
 
 const Settings = () => {
   const {
-    node,
     props,
     actions: { setProp },
   } = useNode((node) => ({
     props: node.data.props,
-    node,
   }));
 
   return (
     <>
-      <CommonSettings node={node} setProp={setProp} />
+      <CommonSettings />
       <Stack direction={'column'} spacing={2} py={1} px={2}>
         <TextField
           margin={'dense'}

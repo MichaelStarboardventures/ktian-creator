@@ -1,56 +1,146 @@
-import { Node } from '@craftjs/core';
-import { Divider, ListItemButton, ListItemText } from '@mui/material';
+import { SettingsProps } from '@/interfaces';
+import { useNode } from '@craftjs/core';
+import { Divider } from '@mui/material';
+import { Item } from './item';
 
-type Callback = (props: Record<string, any>) => void;
-
-export const Settings = ({
-  node,
-  setProp,
-}: {
-  node: Node;
-  setProp: (callback: Callback) => void;
-}) => {
-  if (!node) return null;
-
+export const Settings = () => {
   const {
-    data: { props },
+    props,
+    actions: { setProp },
     dom,
-  } = node;
+  } = useNode((node) => ({
+    props: node.data.props,
+    dom: node.dom,
+  }));
 
   return (
     <>
       <>
         <h6>Properties</h6>
-        <ListItemButton>
-          <ListItemText primary={'Width'} />
-          <ListItemText>
-            <span
-              contentEditable={true}
-              suppressContentEditableWarning={true}
-              onBlur={(event) =>
-                setProp((props) => (props.width = event.target.textContent))
-              }
-            >
-              {props.width || dom?.clientWidth}
-            </span>
-            {' px'}
-          </ListItemText>
-        </ListItemButton>
-        <ListItemButton>
-          <ListItemText primary={'Height'} />
-          <ListItemText>
-            <span
-              contentEditable={true}
-              suppressContentEditableWarning={true}
-              onBlur={(event) =>
-                setProp((props) => (props.height = event.target.textContent))
-              }
-            >
-              {props.height || dom?.clientHeight}
-            </span>
-            {' px'}
-          </ListItemText>
-        </ListItemButton>
+        <Item
+          label={'Width'}
+          content={
+            <>
+              <span
+                contentEditable={true}
+                suppressContentEditableWarning={true}
+                onBlur={(event) =>
+                  setProp(
+                    (props: SettingsProps) =>
+                      (props.width = event.target
+                        .textContent as SettingsProps['width']),
+                  )
+                }
+              >
+                {props.width || dom?.clientWidth}
+              </span>
+              {' px'}
+            </>
+          }
+        />
+        <Item
+          label={'Height'}
+          content={
+            <>
+              <span
+                contentEditable={true}
+                suppressContentEditableWarning={true}
+                onBlur={(event) =>
+                  setProp(
+                    (props: SettingsProps) =>
+                      (props.height = event.target
+                        .textContent as SettingsProps['height']),
+                  )
+                }
+              >
+                {props.height || dom?.clientHeight}
+              </span>
+              {' px'}
+            </>
+          }
+        />
+      </>
+      <Divider />
+      <>
+        <h6>Typography</h6>
+        {props.fontFamily && (
+          <Item
+            label={'Font'}
+            content={
+              <>
+                <span>{props.fontFamily}</span>
+              </>
+            }
+          />
+        )}
+        {props.fontWeight && (
+          <Item
+            label={'Weight'}
+            content={
+              <>
+                <span
+                  contentEditable={true}
+                  suppressContentEditableWarning={true}
+                  onBlur={(event) =>
+                    setProp(
+                      (props: SettingsProps) =>
+                        (props.fontWeight = event.target
+                          .textContent as SettingsProps['fontWeight']),
+                    )
+                  }
+                >
+                  {props.fontWeight}
+                </span>
+              </>
+            }
+          />
+        )}
+        {props.fontSize && (
+          <Item
+            label={'Size'}
+            content={
+              <>
+                <span
+                  contentEditable={true}
+                  suppressContentEditableWarning={true}
+                  onBlur={(event) =>
+                    setProp(
+                      (props: SettingsProps) =>
+                        (props.fontSize = event.target
+                          .textContent as SettingsProps['fontSize']),
+                    )
+                  }
+                >
+                  {props.fontSize}
+                </span>
+                {' px'}
+              </>
+            }
+          />
+        )}
+        {props.lineHeight && (
+          <Item
+            label={'Line height'}
+            content={
+              <>
+                <span
+                  contentEditable={true}
+                  suppressContentEditableWarning={true}
+                  onBlur={(event) =>
+                    setProp(
+                      (props: SettingsProps) =>
+                        (props.lineHeight = event.target
+                          .textContent as SettingsProps['lineHeight']),
+                    )
+                  }
+                >
+                  {props.lineHeight}
+                </span>
+                {' px'}
+              </>
+            }
+          />
+        )}
       </>
       <Divider />
     </>

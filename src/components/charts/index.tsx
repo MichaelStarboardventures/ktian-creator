@@ -6,6 +6,11 @@ import { Divider, Drawer, IconButton, Typography } from '@mui/material';
 import { Button, Col, Row, Tabs } from 'antd';
 import _ from 'lodash';
 import React, { useContext } from 'react';
+import styled from 'styled-components';
+
+const TabsStyled = styled(Tabs)`
+  margin-top: 15px;
+`;
 
 const Item = ({
   create,
@@ -31,7 +36,13 @@ export const Charts = () => {
     connectors: { create },
   } = useEditor();
 
-  const materials = _.omit(resolvers, ['Container', 'Frame', 'Tool', 'Button']);
+  const materials = _.omit(resolvers, [
+    'Container',
+    'Frame',
+    'Tool',
+    'Button',
+    'Text',
+  ]);
 
   return (
     <Drawer
@@ -63,22 +74,15 @@ export const Charts = () => {
           <Divider />
         </Col>
       </Row>
-      <Tabs type={'card'} size={'small'}>
-        <Tabs.TabPane tab={'Business'} key={'Business'}>
+      <TabsStyled type={'card'} size={'small'}>
+        <TabsStyled.TabPane tab={'Business'} key={'Business'}>
           <Row gutter={[15, 15]} style={{ padding: 15 }}>
             {Object.values(materials).map((resolver: UserComponent, index) => {
               return <Item key={index} create={create} resolver={resolver} />;
             })}
           </Row>
-        </Tabs.TabPane>
-        <Tabs.TabPane tab={'Video'} key={'Video'}>
-          <Row gutter={[15, 15]} style={{ padding: 15 }}>
-            {Object.values(materials).map((resolver: UserComponent, index) => {
-              return <Item key={index} create={create} resolver={resolver} />;
-            })}
-          </Row>
-        </Tabs.TabPane>
-      </Tabs>
+        </TabsStyled.TabPane>
+      </TabsStyled>
     </Drawer>
   );
 };

@@ -12,11 +12,8 @@ const PropertiesPanelStyled = styled(Paper)`
     margin: 0;
     padding: 0 10px;
     line-height: 40px;
+    font-weight: bold;
   }
-`;
-
-const SettingsStyled = styled.div`
-  //padding: 10px;
 `;
 
 const Properties = () => {
@@ -31,11 +28,7 @@ const Properties = () => {
 
   const Settings = nodes[selecteds[0]]?.related?.settings as React.FC;
 
-  return Settings ? (
-    <SettingsStyled>
-      <Settings />
-    </SettingsStyled>
-  ) : null;
+  return Settings ? <Settings /> : null;
 };
 
 export const PropertiesPanel = () => {
