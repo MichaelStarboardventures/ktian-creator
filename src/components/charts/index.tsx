@@ -1,8 +1,11 @@
 import { Context } from '@/components/provider';
 import * as resolvers from '@/components/resolver';
 import { useEditor, UserComponent } from '@craftjs/core';
-import { ChevronLeft as ChevronLeftIcon } from '@mui/icons-material';
-import { Divider, Drawer, IconButton, Typography } from '@mui/material';
+import {
+  BusinessOutlined,
+  ChevronLeft as ChevronLeftIcon,
+} from '@mui/icons-material';
+import { Divider, Drawer, IconButton, Stack, Typography } from '@mui/material';
 import { Button, Col, Row, Tabs } from 'antd';
 import _ from 'lodash';
 import React, { useContext } from 'react';
@@ -75,7 +78,15 @@ export const Charts = () => {
         </Col>
       </Row>
       <TabsStyled type={'card'} size={'small'}>
-        <TabsStyled.TabPane tab={'Business'} key={'Business'}>
+        <TabsStyled.TabPane
+          tab={
+            <Stack direction={'row'} spacing={1} alignItems={'center'}>
+              <BusinessOutlined />
+              <span>Business</span>
+            </Stack>
+          }
+          key={'Business'}
+        >
           <Row gutter={[15, 15]} style={{ padding: 15 }}>
             {Object.values(materials).map((resolver: UserComponent, index) => {
               return <Item key={index} create={create} resolver={resolver} />;

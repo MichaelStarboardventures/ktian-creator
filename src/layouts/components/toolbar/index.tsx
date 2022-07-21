@@ -15,6 +15,7 @@ import { TabletOutlined } from '@mui/icons-material';
 import { Button as AntButton, Col, Row, Tooltip } from 'antd';
 import React, { useContext } from 'react';
 import styled from 'styled-components';
+import { useModel } from 'umi';
 
 const ToolbarStyled = styled.div`
   height: 48px;
@@ -41,6 +42,8 @@ export const Toolbar = () => {
     connectors: { create },
   } = useEditor();
   const { setDrawVisible } = useContext(Context);
+
+  const { setDisplay } = useModel('display');
 
   const FrameNode = Frame as unknown as React.FC;
   const TextNode = Text as unknown as React.FC;
@@ -87,13 +90,22 @@ export const Toolbar = () => {
         <Col>
           <Row gutter={[20, 0]} justify={'center'}>
             <Col>
-              <DesktopOutlined className={'toolbar-icon'} />
+              <DesktopOutlined
+                className={'toolbar-icon'}
+                onClick={() => setDisplay('desktop')}
+              />
             </Col>
             <Col>
-              <TabletOutlined className={'toolbar-icon'} />
+              <TabletOutlined
+                className={'toolbar-icon'}
+                onClick={() => setDisplay('pad')}
+              />
             </Col>
             <Col>
-              <MobileOutlined className={'toolbar-icon'} />
+              <MobileOutlined
+                className={'toolbar-icon'}
+                onClick={() => setDisplay('mobile')}
+              />
             </Col>
           </Row>
         </Col>

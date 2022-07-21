@@ -1,4 +1,4 @@
-import { DeleteOutlined } from '@ant-design/icons';
+import { CopyOutlined, DeleteOutlined } from '@ant-design/icons';
 import { useEditor, useNode } from '@craftjs/core';
 import { Col, Row } from 'antd';
 import React from 'react';
@@ -14,7 +14,7 @@ const ToolStyled = styled.div<{ hovered: boolean; selected: boolean }>`
 
 const ToolButtonsStyled = styled(Row)`
   position: absolute;
-  right: 1px;
+  right: 4px;
   top: -1px;
   padding: 5px;
   background-color: #5a5a5a;
@@ -32,16 +32,30 @@ const ToolButtons = ({
   hovered: boolean;
 }) => {
   const {
-    actions: { delete: deleteNode },
-    query: { node },
+    actions: { delete: deleteNode, addNodeTree, selectNode },
+    query: { node, parseReactElement },
   } = useEditor();
 
   const {
-    data: { displayName },
+    data: { displayName, props, type, parent },
   } = node(id).get();
 
   return (selected || hovered) && displayName !== 'Container' ? (
-    <ToolButtonsStyled gutter={[5, 0]} align={'middle'}>
+    <ToolButtonsStyled gutter={[10, 0]} align={'middle'}>
+      <Col>
+        <CopyOutlined
+          onClick={() => {
+            const CopyNode = React.createElement(type, {
+              ...props,
+            });
+
+            const nodeTree = parseReactElement(CopyNode).toNodeTree();
+
+            addNodeTree(nodeTree, parent);
+            selectNode(nodeTree.rootNodeId);
+          }}
+        />
+      </Col>
       <Col>
         <DeleteOutlined
           onClick={() => {
@@ -73,9 +87,6 @@ export const Tool: React.FC = ({ children }) => {
       selected={selected}
       ref={(ref) => connect(drag(ref as HTMLDivElement))}
     >
-      {/*<Dropdown overlay={<ContextMenu />} trigger={['contextMenu']}>*/}
-      {/*  {children}*/}
-      {/*</Dropdown>*/}
       {children}
       <ToolButtons hovered={hovered} selected={selected} id={id} />
     </ToolStyled>

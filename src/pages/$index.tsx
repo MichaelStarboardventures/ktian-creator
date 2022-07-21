@@ -1,9 +1,11 @@
-import { Element, Frame, useEditor } from '@craftjs/core';
+import { Stagger } from '@/components/resolver';
+import { Frame, useEditor } from '@craftjs/core';
 import { useEffect } from 'react';
 import { useModel } from 'umi';
 
 export default function Index() {
   const { currentPage } = useModel('pages');
+
   const {
     actions: { deserialize },
   } = useEditor();
@@ -16,7 +18,7 @@ export default function Index() {
 
   return (
     <Frame data={currentPage?.content}>
-      <Element id={'stagger'} is={'div'} style={{ height: '100%' }} canvas />
+      <Stagger />
     </Frame>
   );
 }
