@@ -9,33 +9,34 @@ const useDisplay = (display: Display) => {
   return useMemo(() => {
     switch (display) {
       case 'desktop':
-        return '100%';
+        return { width: '100%', height: '100%' };
 
       case 'pad':
-        return '1180px';
+        return { width: '1180px', height: '820px' };
 
       case 'mobile':
-        return '375px';
+        return { width: '375px', height: '667px' };
 
       default:
-        return '100%';
+        return { width: '100%', height: '100%' };
     }
   }, [display]);
 };
 
-const StaggerStyled = styled(Paper)<{ width: string }>`
+const StaggerStyled = styled(Paper)<{ width: string; height: string }>`
   width: ${({ width }) => width};
-  height: 100%;
+  height: ${({ height }) => height};
   margin: 0 auto;
   background-color: #f5f5f5;
+  overflow: auto;
 `;
 
 export const Stagger = () => {
   const { display } = useModel('display');
-  const displayWidth = useDisplay(display);
+  const css = useDisplay(display);
 
   return (
-    <StaggerStyled width={displayWidth}>
+    <StaggerStyled {...css}>
       <Element
         canvas
         id={'stagger'}

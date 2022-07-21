@@ -1,21 +1,18 @@
 import { Context } from '@/components/provider';
 import { Frame, Text } from '@/components/resolver';
+import { Display } from '@/layouts/components/display';
 import { Todo } from '@/layouts/components/todo';
 import {
-  DesktopOutlined,
   LinkOutlined,
-  MobileOutlined,
   PlayCircleOutlined,
   PlusOutlined,
   SaveOutlined,
   SettingOutlined,
 } from '@ant-design/icons';
 import { useEditor } from '@craftjs/core';
-import { TabletOutlined } from '@mui/icons-material';
 import { Button as AntButton, Col, Row, Tooltip } from 'antd';
 import React, { useContext } from 'react';
 import styled from 'styled-components';
-import { useModel } from 'umi';
 
 const ToolbarStyled = styled.div`
   height: 48px;
@@ -42,8 +39,6 @@ export const Toolbar = () => {
     connectors: { create },
   } = useEditor();
   const { setDrawVisible } = useContext(Context);
-
-  const { setDisplay } = useModel('display');
 
   const FrameNode = Frame as unknown as React.FC;
   const TextNode = Text as unknown as React.FC;
@@ -88,26 +83,7 @@ export const Toolbar = () => {
           </Row>
         </Col>
         <Col>
-          <Row gutter={[20, 0]} justify={'center'}>
-            <Col>
-              <DesktopOutlined
-                className={'toolbar-icon'}
-                onClick={() => setDisplay('desktop')}
-              />
-            </Col>
-            <Col>
-              <TabletOutlined
-                className={'toolbar-icon'}
-                onClick={() => setDisplay('pad')}
-              />
-            </Col>
-            <Col>
-              <MobileOutlined
-                className={'toolbar-icon'}
-                onClick={() => setDisplay('mobile')}
-              />
-            </Col>
-          </Row>
+          <Display />
         </Col>
         <Col>
           <Row gutter={[20, 0]}>
