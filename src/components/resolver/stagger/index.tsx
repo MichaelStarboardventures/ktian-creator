@@ -29,6 +29,10 @@ const StaggerStyled = styled(Paper)<{ width: string; height: string }>`
   margin: 0 auto;
   background-color: #f5f5f5;
   overflow: auto;
+
+  &::-webkit-scrollbar {
+    display: none;
+  }
 `;
 
 export const Stagger = () => {
