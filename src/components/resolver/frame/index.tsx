@@ -1,12 +1,6 @@
 import { Container, Tool } from '@/components/resolver';
 import { Element, UserComponent } from '@craftjs/core';
-import { CSSProperties, ReactNode } from 'react';
-import styled from 'styled-components';
-
-const FrameStyled = styled.div`
-  padding: 24px;
-  background-color: #fff;
-`;
+import React, { CSSProperties, ReactNode } from 'react';
 
 type FrameProps = {
   children?: ReactNode;
@@ -20,11 +14,19 @@ type FrameProps = {
 export const Frame: UserComponent<FrameProps> = ({ children }) => {
   return (
     <Tool>
-      <FrameStyled>
-        <Element id={'frame'} is={Container} canvas>
-          {children}
-        </Element>
-      </FrameStyled>
+      <Element
+        id={'frame'}
+        is={Container as React.FC}
+        canvas
+        custom={{
+          css: {
+            padding: '24px',
+            backgroundColor: '#fff',
+          },
+        }}
+      >
+        {children}
+      </Element>
     </Tool>
   );
 };

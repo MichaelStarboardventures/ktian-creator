@@ -27,7 +27,7 @@ const usePages = (pages: Page[]): Page[] => {
           type: 'div',
           isCanvas: true,
           props: { style: { width: '100%', height: '100%' } },
-          displayName: 'div',
+          displayName: 'Content',
           parent: 'ROOT',
           hidden: false,
           nodes: [],

@@ -1,4 +1,8 @@
-import { CopyOutlined, DeleteOutlined } from '@ant-design/icons';
+import {
+  ArrowUpOutlined,
+  CopyOutlined,
+  DeleteOutlined,
+} from '@ant-design/icons';
 import { useEditor, useNode } from '@craftjs/core';
 import { Col, Row } from 'antd';
 import React from 'react';
@@ -32,37 +36,46 @@ const ToolButtons = ({
   hovered: boolean;
 }) => {
   const {
-    actions: { delete: deleteNode, addNodeTree, selectNode },
-    query: { node, parseReactElement },
+    actions: { delete: deleteNode, add, selectNode },
+    query: { node, parseFreshNode },
   } = useEditor();
 
   const {
-    data: { displayName, props, type, parent },
+    data: { displayName, type, parent, props },
   } = node(id).get();
 
-  return (selected || hovered) && displayName !== 'Container' ? (
+  return selected || hovered ? (
     <ToolButtonsStyled gutter={[10, 0]} align={'middle'}>
       <Col>
-        <CopyOutlined
+        <ArrowUpOutlined
           onClick={() => {
-            const CopyNode = React.createElement(type, {
-              ...props,
-            });
-
-            const nodeTree = parseReactElement(CopyNode).toNodeTree();
-
-            addNodeTree(nodeTree, parent);
-            selectNode(nodeTree.rootNodeId);
+            selectNode(parent);
           }}
         />
       </Col>
-      <Col>
-        <DeleteOutlined
-          onClick={() => {
-            deleteNode(id);
-          }}
-        />
-      </Col>
+      {displayName !== 'Container' && (
+        <>
+          <Col>
+            <CopyOutlined
+              onClick={() => {
+                const newNode = parseFreshNode({
+                  data: { displayName, type, props, parent },
+                }).toNode();
+
+                add(newNode, parent);
+                selectNode(newNode.id);
+              }}
+            />
+          </Col>
+          <Col>
+            <DeleteOutlined
+              onClick={() => {
+                deleteNode(id);
+              }}
+            />
+          </Col>
+        </>
+      )}
     </ToolButtonsStyled>
   ) : null;
 };

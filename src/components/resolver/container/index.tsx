@@ -7,22 +7,24 @@ import { Col, Row } from 'antd';
 import React, { CSSProperties, ReactElement } from 'react';
 import styled, { StyledComponent } from 'styled-components';
 
-export type ContainerProps = {
+export type ContainerProps = SettingsProps & {
+  align?: 'top' | 'middle' | 'bottom';
   spacing?: number;
   justify?: CSSProperties['justifyContent'];
-  align?: 'top' | 'middle' | 'bottom';
   display?: CSSProperties['display'];
-} & SettingsProps;
+};
 
 const StaggerBlockStyled = styled.div<SettingsProps>`
   width: ${({ width }) => width}px;
   height: ${({ height }) => (height ? height + 'px' : '100%')};
   min-height: 200px;
+  background-color: #fff;
 `;
 
 const StaggerRowStyled = styled(Row)<SettingsProps>`
   height: 100%;
   min-height: 200px;
+  background-color: #fff;
 `;
 
 export const FlexChildComponent: React.FC = ({ children }) => {
