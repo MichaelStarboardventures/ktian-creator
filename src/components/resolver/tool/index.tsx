@@ -58,12 +58,12 @@ const ToolButtons = ({
           <Col>
             <CopyOutlined
               onClick={() => {
-                const newNode = parseFreshNode({
-                  data: { displayName, type, props, parent },
+                const freshNode = parseFreshNode({
+                  data: { type, props, displayName },
                 }).toNode();
 
-                add(newNode, parent);
-                selectNode(newNode.id);
+                add(freshNode, parent);
+                selectNode(freshNode.id);
               }}
             />
           </Col>
