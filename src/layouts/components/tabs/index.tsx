@@ -80,8 +80,8 @@ const TabsPages = () => {
 
   return apps?.length ? (
     <>
-      {apps?.map((ret, index) => (
-        <TabPage key={index} page={ret} />
+      {apps?.map((ret) => (
+        <TabPage key={ret.id} page={ret} />
       ))}
     </>
   ) : null;
@@ -102,7 +102,7 @@ export const Tabs = () => {
           setApps((apps) => [
             ...apps,
             {
-              id: '' + apps.length,
+              id: String(new Date().getTime()),
               label: 'new app',
               value: 'new app',
             },

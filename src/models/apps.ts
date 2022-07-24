@@ -53,7 +53,9 @@ export const useDeleteApp = (
 };
 
 export default () => {
-  const [apps, setApps] = useState<App[]>([]);
+  const [apps, setApps] = useState<App[]>([
+    { id: String(new Date().getTime()), label: 'new app', value: 'new app' },
+  ]);
   const [app, setApp] = useState<App | null>(null);
 
   const retApps = useApps(apps);
